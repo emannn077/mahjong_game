@@ -11,10 +11,10 @@ const Leaderboard = () => {
   return (
     <div className="leaderboard">
       <h3>TOP 5 </h3>
-      {scores.length === 0 ? (
+      {score.length === 0 ? (
         <p>No scores yet</p>
       ) : (
-        scores.map((s, i) => (
+        score.map((s, i) => (
           <p key={i}>
             {i + 1}. {s.name} - {s.score}
           </p>

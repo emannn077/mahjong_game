@@ -5,7 +5,8 @@ const GameContext = createContext()
 export const GameProvider = ({ children }) => {
   const [drawPile, setDrawPile] = useState([])
   const [discardPile, setDiscardPile] = useState([])
-  const [currentHand, setcurrentHand] = useState([])
+  const [currentHand, setCurrentHand] = useState([])
+  const [previousHands, setPreviousHands] = useState([])
   const [tileValue, setTileValues] = useState([])
   const [score, setScore] = useState(0)
   const [reshuffles, setReshuffles] = useState(0)
@@ -19,7 +20,9 @@ export const GameProvider = ({ children }) => {
         discardPile,
         setDiscardPile,
         currentHand,
-        setcurrentHand,
+        setCurrentHand,
+        previousHands,
+        setPreviousHands,
         tileValue,
         setTileValues,
         score,

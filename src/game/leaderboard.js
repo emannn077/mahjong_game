@@ -1,6 +1,6 @@
 const KEY = "leaderboard";
 
-export const getLeaderboard=()=>{
+export const getLeaderboard=()=>
   JSON.parse(localStorage.getItem(KEY) || '[]')
 export const saveScore=(entry)=>{
   const data = getLeaderboard();
@@ -10,5 +10,4 @@ export const saveScore=(entry)=>{
 
 
   localStorage.setItem(KEY,JSON.stringify(updated)) //here JSON.stringify converts the JS object or array into string. it will pack the data into a string.
-}
 }
