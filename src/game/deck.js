@@ -1,5 +1,9 @@
+//in deck.js i will be creating a mahjong style deck of tiles that will include the number(dots,bamboo and characters )with honor tiles.
 export const createDeck =()=>{
   const deck =[];
+
+
+  //these are all number tiles suits used in the game. Below this is the logic to generate number tiles from (1-9) for each suit.
   const suits=["dots","bamboo","characters"];
 
   suits.forEach(suit=>{
@@ -10,6 +14,8 @@ export const createDeck =()=>{
       }
     }
   })
+
+  // here honors tiles re actually  winds +dragons. Each tile will be appearing 4 times. winds are -> east ,west ,north and south whereas the dragons are-> red, white ad green.
   const honors=["east","west","north","south","red","green","white"]
   honors.forEach(honor=>{
     for(let i=0;i<4;i++){
@@ -19,4 +25,6 @@ export const createDeck =()=>{
 
   return deck
 }
+
+//here we used math.random to shuffle the deck randomly.
 export const shuffle =(deck)=>[...deck].sort(()=> Math.random() -0.5);

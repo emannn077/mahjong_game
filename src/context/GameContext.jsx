@@ -22,7 +22,7 @@ export const GameProvider = ({ children }) => {
         tileValue,
         setTileValues,
         score,
-        setTileValues,
+        setScore,
         reshuffles,
         setReshuffles,
         gameOver,
