@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react"
 
 const GameContext = createContext()
+
 export const GameProvider = ({ children }) => {
   const [drawPile, setDrawPile] = useState([])
   const [discardPile, setDiscardPile] = useState([])

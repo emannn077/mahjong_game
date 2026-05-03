@@ -1,6 +1,7 @@
 import { motion } from `framer-motion`;
 
-const Tile=({tile})=>(
+const Tile=({tile})=>{
+  return(
   <motion.div
   className='title'
   initial={{scale:0}}
@@ -8,6 +9,6 @@ const Tile=({tile})=>(
   >
     {tile.type === "number" ? tile.value: tile.name}
   </motion.div>
-)
-
-export default Tile
+  );
+};
+export default Tile;
