@@ -2,7 +2,7 @@ import { motion } from `framer-motion`;
 
 const Tile=({tile})=>(
   <motion.div
-  classNmae='title'
+  className='title'
   initial={{scale:0}}
   animate={{scale=1}}
   >

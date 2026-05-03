@@ -1,9 +1,10 @@
 import Tile from "./Tile"
 
-const Hand = ({hand})=>(
+const Hand = ({ hand }) => (
   <div className="hand">
-    {hand.map(t=><Tile key={title.id} tile={tile} />
-
-  )}
+    {hand.map((t) => (
+      <Tile key={t.id} tile={t} />
+    ))}
   </div>
 )
+export default Hand;
