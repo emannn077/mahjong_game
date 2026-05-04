@@ -1,26 +1,31 @@
-import { useEffect, useState } from "react"
-import { getLeaderboard } from "../game/leaderboard"
+import { useEffect, useState } from "react";
+import { getLeaderboard } from "../game/leaderboard";
+
+
+const RANK_LABELS = ["Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ"];
 
 const Leaderboard = () => {
-  const [score, setScore] = useState([])
+  const [scores, setScores] = useState([]);
 
   useEffect(() => {
-    setScore(getLeaderboard())
-  }, [])
+    setScores(getLeaderboard());
+  }, []);
 
   return (
     <div className="leaderboard">
-      <h3>TOP 5 </h3>
-      {score.length === 0 ? (
-        <p>No scores yet</p>
+      {scores.length === 0 ? (
+        <p className="lb-empty">No champions yet</p>
       ) : (
-        score.map((s, i) => (
-          <p key={i}>
-            {i + 1}. {s.name} - {s.score}
-          </p>
+        scores.map((entry, i) => (
+          <div key={i} className="lb-row">
+            <span className="lb-rank">{RANK_LABELS[i]}</span>
+            <span className="lb-name">{entry.name}</span>
+            <span className="lb-score">{entry.score}</span>
+          </div>
         ))
       )}
     </div>
-  )
-}
-export default Leaderboard
+  );
+};
+
+export default Leaderboard;

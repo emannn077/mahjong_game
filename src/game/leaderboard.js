@@ -1,13 +1,23 @@
-const KEY = "leaderboard";
+import { LEADERBOARD_KEY, LEADERBOARD_SIZE } from "./constants";
 
-export const getLeaderboard=()=>
-  JSON.parse(localStorage.getItem(KEY) || '[]')
-export const saveScore=(entry)=>{
-  const data = getLeaderboard();
-  const updated=[...data,entry]
-    .sort((a,b)=>b.score-a.score)
-    .slice(0,5);
+const _read = () => {
+  try {
+    return JSON.parse(localStorage.getItem(LEADERBOARD_KEY) || "[]");
+  } catch {
+    return [];
+  }
+};
 
+const _write = (data) => {
+  localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(data));
+};
+export const getLeaderboard = () => _read();
 
-  localStorage.setItem(KEY,JSON.stringify(updated)) //here JSON.stringify converts the JS object or array into string. it will pack the data into a string.
-}
+export const saveScore = (entry) => {
+  const updated = [..._read(), entry]
+    .sort((a, b) => b.score - a.score)
+    .slice(0, LEADERBOARD_SIZE);
+  _write(updated);
+};
+
+export const clearLeaderboard = () => _write([]);

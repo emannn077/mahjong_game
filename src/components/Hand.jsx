@@ -1,13 +1,10 @@
-import Tile from "./Tile"
-
-const Hand = ({ hand }) => {
-  return(
+import Tile from "./Tile";
+const Hand = ({ hand }) => (
   <div className="hand">
-    {hand.map((t) => (
-      <Tile key={t.id} tile={t} />
+    {hand.map((tile) => (
+      <Tile key={tile.id} tile={tile} />
     ))}
   </div>
+);
 
-  )
-}
 export default Hand;

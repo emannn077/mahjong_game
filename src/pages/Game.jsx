@@ -1,87 +1,79 @@
-import { useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import { createDeck, shuffle } from "../game/deck";
-import { drawHand, calculateValue, updateValues } from "../game/engine";
+import { drawHand, calculateValue, calculateScore, updateValues, isGameOver, isWin } from "../game/engine";
 import { saveScore } from "../game/leaderboard";
+import { MAX_RESHUFFLES, RESHUFFLE_THRESHOLD } from "../game/constants";
 import Hand from "../components/Hand";
+import GameOverScreen from "../components/GameOverScreen";
 
 const Game = ({ exit }) => {
   const g = useGame();
-
-  useEffect(() => {
-    const { hand, newPile } = drawHand(shuffle(createDeck()));
-    g.setDrawPile(newPile);
-    g.setCurrentHand(hand);
-  }, []);
-
-  const isWin = (type, previous, next) =>
-    (type === "higher" && next > previous) ||
-    (type === "lower" && next < previous);
-
-  const shouldReshuffle = (pile) => pile.length < 3;
-
+  if (g.gameOver) {
+    return <GameOverScreen score={g.score} onExit={exit} onPlayAgain={g.resetGame} />;
+  }
   const bet = (type) => {
     const previousValue = calculateValue(g.currentHand, g.tileValues);
+    let pile          = g.drawPile;
+    let newReshuffles = g.reshuffles;
 
-    let pile = g.drawPile;
-
-    if (shouldReshuffle(pile)) {
+    if (pile.length < RESHUFFLE_THRESHOLD) {
       pile = shuffle([...g.discardPile, ...createDeck()]);
-      g.setReshuffles(r => r + 1);
+      newReshuffles += 1;
     }
-
     const { hand, newPile } = drawHand(pile);
-    const newValue = calculateValue(hand, g.tileValues);
-    const win = isWin(type, previousValue, newValue);
-
-    g.setTileValues(updateValues(hand, win, g.tileValues));
-    g.setPreviousHands([g.currentHand, ...g.previousHands.slice(0, 4)]);
+    const nextValue         = calculateValue(hand, g.tileValues);
+    const won               = isWin(type, previousValue, nextValue);
+    const newScore      = calculateScore(g.score, won);
+    const newTileValues = updateValues(hand, won, g.tileValues);
+    g.setDrawPile(newPile);
     g.setDiscardPile([...g.discardPile, ...g.currentHand]);
     g.setCurrentHand(hand);
-    g.setDrawPile(newPile);
-    g.setScore(s => s + (win ? 10 : -5));
+    g.setPreviousHands([g.currentHand, ...g.previousHands.slice(0, 4)]);
+    g.setTileValues(newTileValues);
+    g.setScore(newScore);
+    g.setReshuffles(newReshuffles);
 
-    checkGameOver(win);
-  };
-
-  const checkGameOver = () => {
-    const tileLimitReached = Object.values(g.tileValues)
-      .some(v => v === 0 || v === 10);
-
-    const reshuffleLimitReached = g.reshuffles >= 2;
-
-    if (tileLimitReached || reshuffleLimitReached) {
+    if (isGameOver(newTileValues, newReshuffles, MAX_RESHUFFLES)) {
       g.setGameOver(true);
-      const name = prompt("Enter name:");
-      saveScore({ name: name || "Player", score: g.score });
+      const name = prompt("Enter your name for the leaderboard:");
+      saveScore({ name: name?.trim() || "Player", score: newScore });
     }
   };
 
-  if (g.gameOver) {
-    return (
-      <div className="center">
-        <h1>Game Over</h1>
-        <p>Score: {g.score}</p>
-        <button onClick={exit}>Back</button>
-      </div>
-    );
-  }
+  const handValue = calculateValue(g.currentHand, g.tileValues);
 
   return (
     <div className="center">
-      <h2>Score: {g.score}</h2>
-
-      <Hand hand={g.currentHand} />
-
-      <div>
-        <button onClick={() => bet("higher")}>Higher</button>
-        <button onClick={() => bet("lower")}>Lower</button>
+      <div className="game-header">
+        <button className="btn-ghost" onClick={exit}>&#8592; Exit</button>
+        <div className="score-display">
+          <div className="score-label">Score</div>
+          <div className="score-num">{g.score}</div>
+        </div>
+        <div className="stats-mini">
+          <div className="stat-pill">Tiles: {g.drawPile.length}</div>
+          <div className="stat-pill">Reshuffles: {g.reshuffles}/{MAX_RESHUFFLES}</div>
+        </div>
       </div>
+      <div className="hand-value-badge">Hand Value: {handValue}</div>
+      <Hand hand={g.currentHand} />
+      <div className="bet-area">
+        <button className="bet-higher" onClick={() => bet("higher")}>▲ Higher</button>
+        <button className="bet-lower"  onClick={() => bet("lower")}>▼ Lower</button>
+      </div>
+      {g.previousHands.length > 0 && (
+        <>
+          <h3 className="history-label">Previous Hands</h3>
+          <div className="history-section">
+            {g.previousHands.map((hand, i) => (
+              <div key={i} className="history-row">
+                <Hand hand={hand} />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
-      <h3>History</h3>
-      {g.previousHands.map((h, i) => (
-        <Hand key={i} hand={h} />
-      ))}
     </div>
   );
 };

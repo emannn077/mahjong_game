@@ -1,8 +1,18 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap');
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
-  font-family: sans-serif;
-  background: #0f172a;
-  color: white;
+  padding: 0;
+}
+
+
+body {
+  font-family: 'Crimson Pro', Georgia, serif;
+  background: #071210;
+  color: #fefae0;
+  min-height: 100vh;
 }
 
 .center {
@@ -10,36 +20,413 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding: 40px 20px;
+  min-height: 100vh;
 }
 
-button {
-  padding: 10px 20px;
-  border-radius: 10px;
+
+.btn-primary {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 14px 40px;
   border: none;
-  background: #6366f1;
-  color: white;
+  border-radius: 4px;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: linear-gradient(135deg, #f4c842 0%, #d4a017 100%);
+  color: #071210;
+  box-shadow: 0 0 0 2px #f4c842, 0 6px 24px rgba(244, 200, 66, 0.5);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px #f4c842, 0 10px 32px rgba(244, 200, 66, 0.65);
 }
 
-button:hover {
-  background: #4f46e5;
+.btn-ghost {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
 }
 
-.tile {
-  background: white;
-  color: black;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 5px;
-  font-weight: bold;
+
+.bet-higher {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: linear-gradient(135deg, #3b9eff, #1668c8);
+  color: #ffffff;
+  box-shadow: 0 0 0 2px #3b9eff, 0 6px 20px rgba(59, 158, 255, 0.45);
 }
+.bet-higher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px #3b9eff, 0 10px 28px rgba(59, 158, 255, 0.6);
+}
+
+
+.bet-lower {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: linear-gradient(135deg, #f04040, #b01010);
+  color: #ffffff;
+  box-shadow: 0 0 0 2px #f04040, 0 6px 20px rgba(240, 64, 64, 0.45);
+}
+.bet-lower:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px #f04040, 0 10px 28px rgba(240, 64, 64, 0.6);
+}
+
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  gap: 32px;
+}
+
+.title-block { text-align: center; }
+
+.title-main {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 6vw, 52px);
+  color: #d4a017;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 40px rgba(212, 160, 23, 0.35), 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.title-sub {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(11px, 2vw, 14px);
+  color: #74c69d;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.game-banner { width: 100%; max-width: 500px; }
+.game-banner svg { width: 100%; height: auto; }
+
+/* Ornament divider */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 320px;
+}
+.ornament-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4a017, transparent);
+}
+.ornament-diamond {
+  width: 8px;
+  height: 8px;
+  background: #d4a017;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.game-header {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(82, 183, 136, 0.2);
+  padding-bottom: 16px;
+}
+
+.score-display { text-align: center; }
+
+.score-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: #74c69d;
+  text-transform: uppercase;
+}
+
+.score-num {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  color: #d4a017;
+  line-height: 1.1;
+}
+
+.stats-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.stat-pill {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(82, 183, 136, 0.3);
+  color: #74c69d;
+}
+
+.hand-value-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: #f4c842;
+  background: rgba(212, 160, 23, 0.1);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  padding: 6px 20px;
+  border-radius: 20px;
+}
+
+.bet-area {
+  display: flex;
+  gap: 20px;
+}
+
+.history-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: #74c69d;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.history-section {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-row { opacity: 0.5; }
+.history-row:first-child { opacity: 0.8; }
+
 
 .hand {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tile {
+  width: 72px;
+  height: 96px;
+  background: #fefae0;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+
+.tile.suit-dots       .tile-number { color: #1a3a8f; }
+.tile.suit-bamboo     .tile-number { color: #2d6a4f; }
+.tile.suit-characters .tile-number { color: #c1121f; }
+
+.tile-number {
+  font-family: 'Crimson Pro', serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  color: #1a1a1a;
+}
+
+.tile-suit {
+  font-size: 10px;
+  color: #666;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.tile.honor-red   .tile-honor-name { color: #c1121f; }
+.tile.honor-green .tile-honor-name { color: #2d6a4f; }
+.tile.honor-white .tile-honor-name { color: #555555; }
+
+.tile-honor-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.tile-honor-name {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #c1121f;
+  margin-top: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.lb-wrap {
+  width: 100%;
+  max-width: 340px;
+}
+
+.lb-title {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: #74c69d;
+  text-align: center;
+  margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
 .leaderboard {
-  background: #1e293b;
-  padding: 15px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(29, 58, 43, 0.8), rgba(13, 31, 23, 0.9));
+  border: 1px solid rgba(82, 183, 136, 0.2);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 15px;
+}
+.lb-row:last-child { border-bottom: none; }
+
+.lb-rank {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: #d4a017;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+.lb-name {
+  flex: 1;
+  color: #e9d8a6;
+  font-family: 'Crimson Pro', serif;
+}
+
+.lb-score {
+  font-family: 'Cinzel', serif;
+  color: #f4c842;
+  font-size: 14px;
+}
+
+.lb-empty {
+  text-align: center;
+  color: rgba(254, 250, 224, 0.3);
+  font-style: italic;
+  padding: 12px 0;
+}
+
+.gameover-screen {
+  justify-content: center;
+}
+
+.game-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 6vw, 52px);
+  color: #d4a017;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 40px rgba(212, 160, 23, 0.3);
+}
+
+.final-score-block {
+  text-align: center;
+}
+
+.final-score-num {
+  font-family: 'Cinzel', serif;
+  font-size: 80px;
+  color: #f4c842;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(244, 200, 66, 0.4);
+}
+
+.final-score-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: #74c69d;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.gameover-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.svg-float1 { animation: svgFloat1 3s ease-in-out infinite; }
+.svg-float2 { animation: svgFloat2 3.4s ease-in-out infinite; }
+.svg-delay1 { animation-delay: 0.5s; }
+.svg-delay2 { animation-delay: 0.3s; }
+.svg-delay3 { animation-delay: 0.8s; }
+
+@keyframes svgFloat1 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes svgFloat2 {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+
+.svg-sparkle       { animation: svgSparkle 2s ease-in-out infinite; }
+.svg-sparkle-delay { animation-delay: 1s; animation-duration: 2.5s; }
+
+@keyframes svgSparkle {
+  0%, 100% { opacity: 0.2; }
+  50%       { opacity: 1; }
 }
